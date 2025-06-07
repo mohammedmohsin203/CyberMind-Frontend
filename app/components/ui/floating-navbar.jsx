@@ -2,6 +2,7 @@
 import React from "react";
 import { cn } from "../../../lib/utils";
 import Image from "next/image";
+import img from '../../../public/Group.svg'
 
 export const FloatingNav = ({ navItems, className, onOpenModal }) => {
     return (
@@ -11,7 +12,7 @@ export const FloatingNav = ({ navItems, className, onOpenModal }) => {
                 className
             )}
         >
-            <Image src="/group.svg" height={50} width={50} alt="group" className="gap-y-4 mr-16" />
+            <Image src={img} height={50} width={50} alt="group" className="gap-y-4 mr-16" />
             {navItems.map((navItem, idx) => (
                 <a
                     key={`link-${idx}`}
