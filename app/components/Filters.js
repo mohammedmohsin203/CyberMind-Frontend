@@ -1,5 +1,7 @@
+import { useEffect, useState } from 'react';
 import { Select, RangeSlider } from '@mantine/core';
 import { IconMapPin, IconSearch, IconBriefcase } from '@tabler/icons-react';
+import axios from 'axios';
 
 export default function Filters({
                                     title,
@@ -13,6 +15,23 @@ export default function Filters({
                                     minSalary,
                                     maxSalary,
                                 }) {
+    const [jobTitles, setJobTitles] = useState([]);
+    const [locations, setLocations] = useState([]);
+
+    useEffect(() => {
+        const fetchFilters = async () => {
+            try {
+                const res = await axios.get('https://cybermind-backend-51x7.onrender.com/jobs/filters');
+                setJobTitles(res.data.jobTitles || []);
+                setLocations(res.data.locations || []);
+            } catch (error) {
+                console.error('Error fetching filters:', error);
+            }
+        };
+
+        fetchFilters();
+    }, []);
+
     return (
         <div
             className="fixed top-20 left-0 right-0 z-50 w-full bg-white shadow px-8 py-8 flex justify-between items-center gap-x-6"
@@ -25,7 +44,7 @@ export default function Filters({
                     variant="unstyled"
                     size="md"
                     placeholder="Search by Job Title"
-                    data={['Frontend Developer', 'Backend Developer', 'Android Developer', 'iOS Developer']}
+                    data={jobTitles}
                     searchable
                     value={title}
                     onChange={setTitle}
@@ -35,13 +54,14 @@ export default function Filters({
 
             <span className="text-gray-300 text-xl font-extralight">|</span>
 
+            {/* Location Filter */}
             <div className="flex items-center gap-2 w-full">
                 <IconMapPin size={20} className="text-gray-400" />
                 <Select
                     variant="unstyled"
                     size="md"
                     placeholder="Preferred Location"
-                    data={['Chennai', 'New York']}
+                    data={locations}
                     searchable
                     value={location}
                     onChange={setLocation}
@@ -51,6 +71,7 @@ export default function Filters({
 
             <span className="text-gray-300 text-xl font-extralight">|</span>
 
+            {/* Job Type Filter */}
             <div className="flex items-center gap-2 w-full">
                 <IconBriefcase size={20} className="text-gray-400" />
                 <Select
@@ -67,10 +88,13 @@ export default function Filters({
 
             <span className="text-gray-300 text-xl font-extralight">|</span>
 
+            {/* Salary Filter */}
             <div className="flex flex-col gap-1 w-full">
                 <div className="flex justify-between text-sm font-medium text-gray-700">
                     <span>Salary Per Month</span>
-                    <span>₹ {Math.round(range[0] / 1000)}k - ₹{Math.round(range[1] / 1000)}k</span>
+                    <span>
+            ₹ {Math.round(range[0] / 1000)}k - ₹{Math.round(range[1] / 1000)}k
+          </span>
                 </div>
                 <RangeSlider
                     min={minSalary || 0}
