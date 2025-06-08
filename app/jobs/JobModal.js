@@ -21,7 +21,7 @@ function JobCard({ job }) {
                 <Box w={100} h={100} style={{ overflow: 'hidden', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'white',    boxShadow: 'inset 0 0 10px rgba(0, 0, 0, 0.25)'}}>
                     {job.imageUrl ? (
                         <Image
-                            src={`http://localhost:3001${job.imageUrl}`}
+                            src={`https://cybermind-backend-51x7.onrender.com${job.imageUrl}`}
                             alt={`${job.companyName} logo`}
                             width={80}
                             height={80}
