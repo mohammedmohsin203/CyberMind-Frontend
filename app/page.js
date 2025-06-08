@@ -47,7 +47,7 @@ export default function Home() {
             });
 
             try {
-                const res = await fetch(`http://localhost:3001/jobs?${query.toString()}`);
+                const res = await fetch(`https://cybermind-backend-51x7.onrender.com/jobs?${query.toString()}`);
                 const data = await res.json();
                 setJobs(Array.isArray(data) ? data : data.jobs || []);
             } catch (err) {
