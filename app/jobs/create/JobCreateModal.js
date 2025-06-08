@@ -50,7 +50,7 @@ export default function JobCreateModal({ opened, onClose }) {
         }
 
         try {
-            const res = await fetch('http://localhost:3001/jobs', {
+            const res = await fetch('https://cybermind-backend-51x7.onrender.com/jobs', {
                 method: 'POST',
                 body: formData,
             });
